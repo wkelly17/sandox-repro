@@ -4,12 +4,14 @@ specifiers:
   '@astrojs/cloudflare': ^6.1.3
   astro: ^2.0.18
   video.js: ^8.0.4
+  videojs-playlist: ^5.0.0
   wrangler: ^2.12.0
 
 dependencies:
   '@astrojs/cloudflare': 6.1.3_astro@2.0.18
   astro: 2.0.18
   video.js: 8.0.4
+  videojs-playlist: 5.0.0
 
 devDependencies:
   wrangler: 2.12.0
@@ -1149,6 +1151,22 @@ packages:
     resolution: {integrity: sha512-iO9ZQHkZxHn4mSakYV0vFHAVDyEOIJQrV2uZ06HxEPcx+mt8swXoZHIbaaJ2crJYFfErySgktuTZ3BeLz+XmFA==}
     dev: false
 
+  /@videojs/http-streaming/2.16.2_video.js@7.21.3:
+    resolution: {integrity: sha512-etPTUdCFu7gUWc+1XcbiPr+lrhOcBu3rV5OL1M+3PDW89zskScAkkcdqYzP4pFodBPye/ydamQoTDScOnElw5A==}
+    engines: {node: '>=8', npm: '>=5'}
+    peerDependencies:
+      video.js: ^6 || ^7
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@videojs/vhs-utils': 3.0.5
+      aes-decrypter: 3.1.3
+      global: 4.4.0
+      m3u8-parser: 4.8.0
+      mpd-parser: 0.22.1
+      mux.js: 6.0.1
+      video.js: 7.21.3
+    dev: false
+
   /@videojs/http-streaming/3.0.0_video.js@8.0.4:
     resolution: {integrity: sha512-AdKmY/W2dyeJP0uALgMRmhLa4pbHMvE4OMlg6yQvufnqsz6jDFo1DYnZRv2ENDYrmVdnPH58Ehgu59053+OIhQ==}
     engines: {node: '>=8', npm: '>=5'}
@@ -1214,6 +1232,15 @@ packages:
     resolution: {integrity: sha512-xjIYgE8HBrkpd/sJqOGNspf8uHG+NOHGOw6a/Urj8taM2EXfdNAH2oFcPeIFfsv3+kz/mJrS5VuMqbNLjCa2vw==}
     engines: {node: '>=0.4.0'}
     hasBin: true
+    dev: false
+
+  /aes-decrypter/3.1.3:
+    resolution: {integrity: sha512-VkG9g4BbhMBy+N5/XodDeV6F02chEk9IpgRTq/0bS80y4dzy79VH2Gtms02VXomf3HmyRe3yyJYkJ990ns+d6A==}
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@videojs/vhs-utils': 3.0.5
+      global: 4.4.0
+      pkcs7: 1.0.4
     dev: false
 
   /aes-decrypter/4.0.1:
@@ -2430,6 +2457,14 @@ packages:
     dependencies:
       yallist: 4.0.0
 
+  /m3u8-parser/4.8.0:
+    resolution: {integrity: sha512-UqA2a/Pw3liR6Df3gwxrqghCP17OpPlQj6RBPLYygf/ZSQ4MoSgvdvhvt35qV+3NaaA0FSZx93Ix+2brT1U7cA==}
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@videojs/vhs-utils': 3.0.5
+      global: 4.4.0
+    dev: false
+
   /m3u8-parser/6.0.0:
     resolution: {integrity: sha512-s3JfDtqhxTilZQf+P1m9dZc4ohL4O/aylP1VV6g9lhKuQNfAcVUzq7d2wgJ9nZR4ibjuXaP87QzGCV6vB0kV6g==}
     dependencies:
@@ -2913,6 +2948,16 @@ packages:
       - utf-8-validate
     dev: true
 
+  /mpd-parser/0.22.1:
+    resolution: {integrity: sha512-fwBebvpyPUU8bOzvhX0VQZgSohncbgYwUyJJoTSNpmy7ccD2ryiCvM7oRkn/xQH5cv73/xU7rJSNCLjdGFor0Q==}
+    hasBin: true
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@videojs/vhs-utils': 3.0.5
+      '@xmldom/xmldom': 0.8.6
+      global: 4.4.0
+    dev: false
+
   /mpd-parser/1.0.1:
     resolution: {integrity: sha512-3CmVq7af3tcLqpx9SLBSweVnxS0SlpkKr+YBLC7O/wO1bv2L9tsCY350wziPWuMEjE5+x46i898sI4YIY3cmJA==}
     hasBin: true
@@ -2936,6 +2981,15 @@ packages:
     resolution: {integrity: sha512-71ippSywq5Yb7/tVYyGbkBggbU8H3u5Rz56fH60jGFgr8uHwxs+aSKeqmluIVzM0m0kB7xQjKS6qPfd0b2ZoqQ==}
     hasBin: true
     dev: true
+
+  /mux.js/6.0.1:
+    resolution: {integrity: sha512-22CHb59rH8pWGcPGW5Og7JngJ9s+z4XuSlYvnxhLuc58cA1WqGDQPzuG8I+sPm1/p0CdgpzVTaKW408k5DNn8w==}
+    engines: {node: '>=8', npm: '>=5'}
+    hasBin: true
+    dependencies:
+      '@babel/runtime': 7.21.0
+      global: 4.4.0
+    dev: false
 
   /mux.js/6.2.0:
     resolution: {integrity: sha512-SKuxIcbmK/aJoz78aQNuoXY8R/uEPm1gQMqWTXL6DNl7oF8UPjdt/AunXGkPQpBouGWKDgL/TzSl2VV5NuboRg==}
@@ -3815,6 +3869,24 @@ packages:
       vfile-message: 3.1.4
     dev: false
 
+  /video.js/7.21.3:
+    resolution: {integrity: sha512-fIboXbSDCT3P8eVzIEC3hnLDKC/y+6QftcHdFGUVGn5a7qmH62Mh0Bt/SrBAgdmKDQM1qdZXfXAxPg5+IaiIXQ==}
+    dependencies:
+      '@babel/runtime': 7.21.0
+      '@videojs/http-streaming': 2.16.2_video.js@7.21.3
+      '@videojs/vhs-utils': 3.0.5
+      '@videojs/xhr': 2.6.0
+      aes-decrypter: 3.1.3
+      global: 4.4.0
+      keycode: 2.2.0
+      m3u8-parser: 4.8.0
+      mpd-parser: 0.22.1
+      mux.js: 6.0.1
+      safe-json-parse: 4.0.0
+      videojs-font: 3.2.0
+      videojs-vtt.js: 0.15.4
+    dev: false
+
   /video.js/8.0.4:
     resolution: {integrity: sha512-fvvWauPanrKDps1HQGGL+9CIAK8G0YVwlNme0hvY0k3moXQryaRcJSLHIlPKV2j9ZFTHl32VbN43jL3TaUllfg==}
     dependencies:
@@ -3846,6 +3918,14 @@ packages:
 
   /videojs-font/3.2.0:
     resolution: {integrity: sha512-g8vHMKK2/JGorSfqAZQUmYYNnXmfec4MLhwtEFS+mMs2IDY398GLysy6BH6K+aS1KMNu/xWZ8Sue/X/mdQPliA==}
+    dev: false
+
+  /videojs-playlist/5.0.0:
+    resolution: {integrity: sha512-TM9bytwKqkE05wdWPEKDpkwMGhS/VgMCIsEuNxmX1J1JO9zaTIl4Wm3egf5j1dhIw19oWrqGUV/nK0YNIelCpA==}
+    engines: {node: '>=4.4.0'}
+    dependencies:
+      global: 4.4.0
+      video.js: 7.21.3
     dev: false
 
   /videojs-vtt.js/0.15.4:
