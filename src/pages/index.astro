@@ -1,7 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
-import videojsPlaylistPlugin from "videojs-playlist";
 ---
 
 <Layout title="Welcome to Astro.">
@@ -85,6 +84,9 @@ import videojsPlaylistPlugin from "videojs-playlist";
 
 <script>
 	import videojs from 'video.js'
+	import videojsPlaylistPlugin from "videojs-playlist";
+  videojs.registerPlugin("playlist", videojsPlaylistPlugin);
+
 	videojs('vid1', {
 		responsive: true,
         fluid: true,
