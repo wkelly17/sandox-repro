@@ -19,7 +19,7 @@ let requestOptions = {
   method: "GET",
   headers: myHeaders,
 };
-const url = `${playbackBaseUrl}/accounts/${accountId}/playlists/ref:${playlist}?limit=300`;
+const url = `${playbackBaseUrl}/accounts/${accountId}/playlists/${playListId}?limit=300`;
 
 // const response = await fetch(url, {
 //   headers,
@@ -33,7 +33,7 @@ const data = await response.json();
 //     });
 //   })
 //   .flat();
-
+console.log({data})
 const sortedVids = data.videos.sort((a, b) => {
   // Given this pattern: ASE-X-BENINSL_63-1JN_1Jean_01.mp4
   // match 0 is entire string
@@ -90,7 +90,7 @@ const sortedVids = data.videos.sort((a, b) => {
 
 sortedVids.forEach((vid, idx) => {
   vid.originalIdx = idx;
-  vid.slugName = vid.name
+  vid.slugName = vid.name;
 });
 ---
 
