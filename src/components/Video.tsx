@@ -23,7 +23,7 @@ export function VideoPlayer(props: any) {
       responsive: true,
       fluid: true,
       controls: true,
-      playbackRates: [0.5, 1, 1.5, 2, 2.5, 3],
+      playbackRates: [0.5, 1, 1.5, 2, 2.5],
       preload: "auto",
       html5: {
         vhs: {

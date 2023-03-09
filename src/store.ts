@@ -1,4 +1,10 @@
-import {createSignal, createEffect, createMemo} from "solid-js";
-const [playerLoader, setPlayerLoaderModule] = createSignal();
+import { createSignal } from "solid-js"
+const [playerLoader, setPlayerLoaderModule] = createSignal<{
+  loaded: boolean
+  module: undefined | ((parameters: Object) => Promise<any> | undefined)
+}>({
+  loaded: false,
+  module: undefined
+})
 
-export {setPlayerLoaderModule, playerLoader};
+export { setPlayerLoaderModule, playerLoader }

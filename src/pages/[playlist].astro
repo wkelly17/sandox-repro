@@ -1,0 +1,127 @@
+---
+import Layout from "../layouts/Layout.astro"
+
+// import {VideoPlayer} from '../components/Video'
+import { playbackApi } from "@customTypes/PlaybackApi"
+import type { CustomVidI } from "@customTypes/types"
+import { PlayerModuleImporter } from "@components/Wrapper"
+import { VidAlt } from "@components/Vid2"
+const pbApi = new playbackApi({
+  baseUrl: "https://edge.api.brightcove.com/playback/v1"
+})
+const accountId = "6314154063001"
+const { playlist } = Astro.params
+if (!playlist) return new Response(400)
+const playListId = "1745043212224883810"
+const playListId2 = "benin-new-testament"
+const policyKey =
+  "BCpkADawqM0bQiUyoSejARSlmKAaReqHw7sRy-4OFGmD8lb2ibVNF-d7H4wtYWIS8NMHOP-3IrfH1mVnUzhxQThtzvPBe-IUyk9EagJcJwWrbIBBCg1tsi8vJFv7_S6GGiTNhDwXFJfwF_W-"
+const playListResponse = await pbApi.accounts.getPlaylistsByIdOrReferenceId(
+  accountId,
+  `ref:${playlist}`,
+  {
+    limit: 400
+  },
+  {
+    headers: {
+      Accept: `application/json;pk=${policyKey}`
+    }
+  }
+)
+
+const data = playListResponse.data
+// console.log({ playListResponse })
+if (!data || !data.videos?.length) return new Response(400)
+
+const sortedVids = data.videos.sort((a: CustomVidI, b: CustomVidI) => {
+  // Given this pattern: ASE-X-BENINSL_63-1JN_1Jean_01.mp4
+  // match 0 is entire string
+  // match 1 is the sort order, 63 ((?:\d)
+  // match 2 is the book (1Jean)
+  // match 3 is the chapter.
+  // optional extension on the end.
+  const pattern =
+    /^.*?(\d{2})-(?:\d)?[A-Z]{2,3}_(\d?.+?)_([0-9]{2,3})(?:\..+)?$/
+
+  if (!a || !b) return 0
+  // /^.*?(\d{2})-(?:0|1)?[A-Z]{2,3}_\d?(.+?)_([0-9]{2,3})(?:\..+)?$/;
+  const ref1 = a.reference_id?.toUpperCase()
+  const ref2 = b.reference_id?.toUpperCase()
+  if (!ref1 || !ref2) return 0
+  const match = ref1.match(pattern)
+  const match2 = ref2.match(pattern)
+  if (!match || !match2) {
+    // console.log("NO MATCHES");
+    // console.log({ref1, ref2});
+    return -1
+  }
+  const sortA = Number(match[1])
+  const bookA = match[2]
+  const chapterNumberA = Number(match[3])
+  const sortB = Number(match2[1])
+  const bookB = match2[2]
+  const chapterNumberB = Number(match2[3])
+  a.book = a.book || bookA
+  b.book = b.book || bookB
+
+  let retVal
+  if (sortA == sortB) {
+    retVal =
+      chapterNumberA < chapterNumberB
+        ? -1
+        : chapterNumberA == chapterNumberB
+        ? 0
+        : 1
+  } else {
+    retVal = sortA < sortB ? -1 : sortA == sortB ? 0 : 1
+  }
+
+  // console.log({
+  //   ref1,
+  //   ref2,
+  //   sortA,
+  //   sortB,
+  //   chapterNumberA,
+  //   chapterNumberB,
+  //   retVal,
+  // });
+  return retVal
+})
+
+sortedVids.forEach((vid: CustomVidI, idx) => {
+  vid.originalIdx = idx
+  vid.slugName = vid.name
+})
+---
+
+<Layout title="Welcome to Astro.">
+  <main class="max-w-5xl p-3 mx-auto">
+    <h1 class="text-2xl text-center">Welcome to {data.name}</h1>
+    <div class="grid grid-cols-2 gap-x-4 gap-y-12">
+      <PlayerModuleImporter client:only="solid-js">
+        {
+          sortedVids.map((vid) => {
+            return (
+              <div class="w-full aspect-square">
+                <VidAlt client:visible vid={vid} />
+              </div>
+            )
+          })
+        }
+        <!-- <For each={sortedVids} client:load>
+          {
+            (vid) => (
+              <div class="w-full border border-green-400 aspect-square">
+                <VidAlt client:visible vid={vid} />
+              </div>
+            )
+          }
+        </For> -->
+      </PlayerModuleImporter>
+    </div>
+  </main>
+  <!-- <div>{JSON.stringify(playListResponse)}</div> -->
+  <!-- <div class="aspect-square">
+			<VideoPlayer client:only="solid-js"/>
+		</div> -->
+</Layout>
