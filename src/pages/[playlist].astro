@@ -16,20 +16,34 @@ const playListId = "1745043212224883810"
 const playListId2 = "benin-new-testament"
 const policyKey =
   "BCpkADawqM0bQiUyoSejARSlmKAaReqHw7sRy-4OFGmD8lb2ibVNF-d7H4wtYWIS8NMHOP-3IrfH1mVnUzhxQThtzvPBe-IUyk9EagJcJwWrbIBBCg1tsi8vJFv7_S6GGiTNhDwXFJfwF_W-"
-const playListResponse = await pbApi.accounts.getPlaylistsByIdOrReferenceId(
-  accountId,
-  `ref:${playlist}`,
-  {
-    limit: 400
-  },
-  {
-    headers: {
-      Accept: `application/json;pk=${policyKey}`
-    }
-  }
-)
+// const playListResponse = await pbApi.accounts.getPlaylistsByIdOrReferenceId(
+//   accountId,
+//   `ref:${playlist}`,
+//   {
+//     limit: 400
+//   },
+//   {
+//     headers: {
+//       Accept: `application/json;pk=${policyKey}`
+//     }
+//   }
+// )
+let myHeaders = new Headers()
+myHeaders.append("Accept", `application/json;pk=${policyKey}`)
 
-const data = playListResponse.data
+let requestOptions = {
+  method: "GET",
+  headers: myHeaders
+}
+const url = `https://edge.api.brightcove.com/playback/v1/accounts/${accountId}/playlists/ref:${playlist}?limit=300`
+
+// const response = await fetch(url, {
+//   headers,
+// });
+const response = await fetch(url, requestOptions)
+const data = await response.json()
+
+// const data = playListResponse.data
 // console.log({ playListResponse })
 if (!data || !data.videos?.length) return new Response(400)
 
@@ -97,6 +111,7 @@ sortedVids.forEach((vid: CustomVidI, idx) => {
 <Layout title="Welcome to Astro.">
   <main class="max-w-5xl p-3 mx-auto">
     <h1 class="text-2xl text-center">Welcome to {data.name}</h1>
+    {JSON.stringify(data)}
     <div class="grid grid-cols-2 gap-x-4 gap-y-12">
       <PlayerModuleImporter client:only="solid-js">
         {
