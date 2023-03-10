@@ -1,8 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro"
-
-// import {VideoPlayer} from '../components/Video'
-import { playbackApi } from "@customTypes/PlaybackApi"
+import { playbackApi, PlaylistResponse } from "@customTypes/PlaybackApi"
 import type { CustomVidI } from "@customTypes/types"
 import { PlayerModuleImporter } from "@components/Wrapper"
 import { VidAlt } from "@components/Vid2"
@@ -41,7 +39,7 @@ const url = `https://edge.api.brightcove.com/playback/v1/accounts/${accountId}/p
 //   headers,
 // });
 const response = await fetch(url, requestOptions)
-const data = await response.json()
+const data: PlaylistResponse = await response.json()
 
 // const data = playListResponse.data
 // console.log({ playListResponse })
@@ -111,7 +109,6 @@ sortedVids.forEach((vid: CustomVidI, idx) => {
 <Layout title="Welcome to Astro.">
   <main class="max-w-5xl p-3 mx-auto">
     <h1 class="text-2xl text-center">Welcome to {data.name}</h1>
-    {JSON.stringify(data)}
     <div class="grid grid-cols-2 gap-x-4 gap-y-12">
       <PlayerModuleImporter client:only="solid-js">
         {
